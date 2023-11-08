@@ -15,6 +15,9 @@ Parameters:
   RegistrationFunctionName:
     Type: String
     Default: face-index-lambda
+  DynamoDBFunctionName:
+    Type: String
+    Default: add-dynamo-lambda
 
 Resources:
   ExtractFaceInImages:
@@ -49,6 +52,19 @@ Resources:
       Architectures:
       - x86_64
 
+  ImportDataToDynamoDB:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: import_to_db/
+      Handler: app.lambda_handler
+      FunctionName: !Ref DynamoDBFunctionName
+      MemorySize: 500
+      Role: arn:aws:iam::812723145208:role/iam-cloud-ojt-lambda-role
+      Runtime: python3.11
+      Timeout: 300
+      Architectures:
+      - x86_64
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -59,3 +75,6 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: Implicit IAM Role created for Hello World function
     Value: !GetAtt HelloWorldFunctionRole.Arn
+  DynamoDBFunction:
+    Description: Import user's data to DynamoDB table "myRekognitionRecord"
+    Value: !GetAtt ImportDataToDynamoDB.Arn

@@ -8,10 +8,10 @@ Parameters:
   #   Description: Email endpoint for Order Notifications
 
 Resources:
-  # DynamoDB:
-  #   Type: AWS::Serverless::Application
-  #   Properties:
-  #     Location: dynamo/template.yaml
+  DynamoDB:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: dynamo/template.yaml
 
   # APIGateway:
   #   Type: AWS::Serverless::Application
@@ -32,9 +32,9 @@ Resources:
       Location: rekognition/template.yaml
 
 Outputs:
-  # DynamoDBTableName:
-  #   Description: "DynamoDB Table Name"
-  #   Value: !GetAtt DynamoDB.Outputs.DynamoDBTableName
+  DynamoDBTableName:
+    Description: "DynamoDB Table Name"
+    Value: !GetAtt DynamoDB.Outputs.DynamoDBTableName
 
   # ApiEndpoint:
   #   Description: "Orders API Gateway Endpoint URL"
