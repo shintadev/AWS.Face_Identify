@@ -3,9 +3,9 @@ Transform: AWS::Serverless-2016-10-31
 Description: Root stack for managing face-extrator resources
 
 Parameters:
-  # SubscriptionEmail:
-  #   Type: String
-  #   Description: Email endpoint for Order Notifications
+  CollectionID:
+    Type: String
+    Default: face-collection
 
 Resources:
   # DynamoDB:
@@ -25,13 +25,17 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: lambda/template.yaml
+      Parameters:
+        CollectionID: !Ref CollectionID
   
   Rekognition:
     Type: AWS::Serverless::Application
     Properties:
       Location: rekognition/template.yaml
+      Parameters: 
+        CollectionID: !Ref CollectionID
 
-Outputs:
+# Outputs:
   # DynamoDBTableName:
   #   Description: "DynamoDB Table Name"
   #   Value: !GetAtt DynamoDB.Outputs.DynamoDBTableName
