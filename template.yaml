@@ -30,11 +30,10 @@ Resources:
   ApiGateway:
     Type: AWS::Serverless::Application
     Properties:
-      Location: apigateway/template.yaml
+      Location: 'apigateway/template.yaml'
       Parameters:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
-    DependsOn: !Ref Lambda
 
 # Outputs:
   # DynamoDBTableName:

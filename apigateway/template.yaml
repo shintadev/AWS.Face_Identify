@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 Parameters:
-  APIName:
+  ApiName:
     Type: String
   ExtractFaceInImagesArn:
     Type: String
@@ -10,7 +10,7 @@ Resources:
   APIGatewayREST:
     Type: AWS::ApiGateway::RestApi
     Properties:
-      Name: !Ref APIName
+      Name: !Ref ApiName
 
   ExtractFaceInImagesResource:
     Type: AWS::ApiGateway::Resource

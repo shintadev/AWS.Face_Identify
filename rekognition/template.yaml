@@ -5,7 +5,6 @@ Parameters:
     Type: String
 
 Resources:
-  #Create rekognition collection to store indexed face
   RekognitionCollection:
     Type: AWS::Rekognition::Collection
     Properties:

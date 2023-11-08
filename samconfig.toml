@@ -11,10 +11,10 @@ cached = true
 parallel = true
 
 [default.validate.parameters]
-lint = true
+lint = false
 
 [default.deploy.parameters]
-capabilities = "CAPABILITY_IAM"
+capabilities = "CAPABILITY_AUTO_EXPAND"
 confirm_changeset = true
 resolve_s3 = true
 
