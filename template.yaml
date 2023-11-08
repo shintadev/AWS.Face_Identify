@@ -3,35 +3,40 @@ Transform: AWS::Serverless-2016-10-31
 Description: Root stack for managing face-extrator resources
 
 Parameters:
-  # SubscriptionEmail:
-  #   Type: String
-  #   Description: Email endpoint for Order Notifications
+  CollectionId:
+    Type: String
+    Default: face-collection
+  S3ImageBucket:
+    Type: String
+    Default: face-bucket
+  APIName:
+    Type: String
+    Default: rekognition-api
 
 Resources:
-  # DynamoDB:
-  #   Type: AWS::Serverless::Application
-  #   Properties:
-  #     Location: dynamo/template.yaml
-
-  # APIGateway:
-  #   Type: AWS::Serverless::Application
-  #   Properties:
-  #     Location: api-gateway/template.yaml
-  #     Parameters:
-  #       Lambda1: !GetAtt DynamoDB.Outputs.DynamoDBTableName
-  #       Lambda2: !Ref SubscriptionEmail
-
-  Lambda:
-    Type: AWS::Serverless::Application
-    Properties:
-      Location: lambda/template.yaml
-  
   Rekognition:
     Type: AWS::Serverless::Application
     Properties:
-      Location: rekognition/template.yaml
+      Location: 'rekognition/template.yaml'
+      Parameters:
+        CollectionID: !Ref CollectionId
+  Lambda:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: 'lambda/template.yaml'
+      Parameters:
+        CollectionID: !Ref CollectionId
+        S3ImageBucket: !Ref S3ImageBucket
+  ApiGateway:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: apigateway/template.yaml
+      Parameters:
+        ApiName: !Ref APIName
+        ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
+    DependsOn: !Ref Lambda
 
-Outputs:
+# Outputs:
   # DynamoDBTableName:
   #   Description: "DynamoDB Table Name"
   #   Value: !GetAtt DynamoDB.Outputs.DynamoDBTableName
