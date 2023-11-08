@@ -1,0 +1,12 @@
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: face-extractor-ojt-s3bucket
+      LifecycleConfiguration:
+        Rules:
+          - Id: SearchRule
+            Prefix: SearchImageStorage
+            Status: Enabled
+            ExpirationInDays: 1

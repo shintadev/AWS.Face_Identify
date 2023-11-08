@@ -35,6 +35,11 @@ Resources:
       Parameters: 
         CollectionID: !Ref CollectionID
 
+  S3Bucket:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: s3/template.yaml
+
 # Outputs:
   # DynamoDBTableName:
   #   Description: "DynamoDB Table Name"
