@@ -6,6 +6,15 @@ Parameters:
   CollectionID:
     Type: String
     Default: face-collection
+  BucketName:
+    Type: String
+    Default: face-extractor-ojt-s3bucket
+  RuleID:
+    Type: String
+    Default: SearchRule
+  SearchPrefix:
+    Type: String
+    Default: search-image
 
 Resources:
   # DynamoDB:
@@ -39,6 +48,10 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: s3/template.yaml
+      Parameters: 
+        BucketName: !Ref BucketName
+        RuleID: !Ref RuleID
+        SearchPrefix: !Ref SearchPrefix
 
 # Outputs:
   # DynamoDBTableName:
