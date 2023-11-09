@@ -21,6 +21,9 @@ Parameters:
   SearchPrefix:
     Type: String
     Default: search-image
+  DynamoTableName:
+    Type: String
+    Default: my-rekognition-record
 
 Resources:
   Rekognition:
@@ -52,6 +55,12 @@ Resources:
         BucketName: !Ref BucketName
         RuleID: !Ref RuleID
         SearchPrefix: !Ref SearchPrefix
+
+  DynamoDB:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: dynamo/template.yaml
+
 
 # Outputs:
   # DynamoDBTableName:
