@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  S3ImageBucket:
+  BucketName:
     Type: String
   RuleID:
     Type: String
@@ -13,7 +13,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Retain
     Properties:
-      BucketName: !Ref S3ImageBucket
+      BucketName: !Ref BucketName
       LifecycleConfiguration:
         Rules:
           - Id: !Ref RuleID
