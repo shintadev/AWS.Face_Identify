@@ -16,10 +16,8 @@ Resources:
     Type: AWS::ApiGateway::Resource
     Properties:
       RestApiId: !Ref APIGatewayREST
-      ParentId: !GetAtt 
-        - APIGatewayREST
-        - RootResourceId
-      PathPart: !Ref ExtractFaceInImagesArn
+      ParentId: !GetAtt APIGatewayREST.RootResourceId
+      PathPart: extractFace
     DependsOn: APIGatewayREST
 
   ExtractFaceInImagesMethod:
@@ -30,11 +28,11 @@ Resources:
       HttpMethod: POST
       AuthorizationType: NONE
       MethodResponses:
-        - StatusCode: 200
+        - StatusCode: '200'
       Integration:
         Type: AWS
         IntegrationResponses:
-          - StatusCode: 200
+          - StatusCode: '200'
         IntegrationHttpMethod: POST
         Uri: !Sub 
           - >-
@@ -58,3 +56,51 @@ Resources:
       Principal: apigateway.amazonaws.com
     DependsOn:
       - ExtractFaceInImagesDeployment
+      
+  #Use template below to create path for another lambda
+  # <API>Resource:
+  #   Type: AWS::ApiGateway::Resource
+  #   Properties:
+  #     RestApiId: !Ref APIGatewayREST
+  #     ParentId: !GetAtt 
+  #       - APIGatewayREST
+  #       - RootResourceId
+  #     PathPart: <Lambda>
+  #   DependsOn: APIGatewayREST
+
+  # <API>Method:
+  #   Type: AWS::ApiGateway::Method
+  #   Properties:
+  #     RestApiId: !Ref APIGatewayREST
+  #     ResourceId: !Ref <API>Resource
+  #     HttpMethod: POST
+  #     AuthorizationType: NONE
+  #     MethodResponses:
+  #       - StatusCode: '200'
+  #     Integration:
+  #       Type: AWS
+  #       IntegrationResponses:
+  #         - StatusCode: '200'
+  #       IntegrationHttpMethod: POST
+  #       Uri: !Sub 
+  #         - >-
+  #           arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations
+  #         - LambdaFuncNameArn: !Ref <Lambda>Arn
+  #   DependsOn:
+  #     - <API>Resource
+  
+  # <API>Deployment:
+  #   Type: AWS::ApiGateway::Deployment
+  #   Properties:
+  #     RestApiId: !Ref APIGatewayREST
+  #   DependsOn:
+  #     - <API>Method
+  
+  # <API>Permission:
+  #   Type: AWS::Lambda::Permission
+  #   Properties:
+  #     Action: lambda:InvokeFunction
+  #     FunctionName: !Ref <Lambda>Arn
+  #     Principal: apigateway.amazonaws.com
+  #   DependsOn:
+  #     - <API>Deployment
