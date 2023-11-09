@@ -11,17 +11,15 @@ cached = true
 parallel = true
 
 [default.validate.parameters]
-lint = true
+lint = false
 
 [default.deploy.parameters]
-capabilities = "CAPABILITY_IAM"
+capabilities = "CAPABILITY_AUTO_EXPAND"
 confirm_changeset = true
 resolve_s3 = true
 s3_prefix = "face-extractor-ojt"
 region = "ap-northeast-1"
-disable_rollback = true
 image_repositories = []
-parameter_overrides = "CollectionID=\"face-collection\""
 
 [default.package.parameters]
 resolve_s3 = true

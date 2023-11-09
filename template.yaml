@@ -3,9 +3,15 @@ Transform: AWS::Serverless-2016-10-31
 Description: Root stack for managing face-extrator resources
 
 Parameters:
-  CollectionID:
+  CollectionId:
     Type: String
     Default: face-collection
+  S3ImageBucket:
+    Type: String
+    Default: face-bucket
+  APIName:
+    Type: String
+    Default: rekognition-api
   BucketName:
     Type: String
     Default: face-extractor-ojt-s3bucket
@@ -17,32 +23,26 @@ Parameters:
     Default: search-image
 
 Resources:
-  # DynamoDB:
-  #   Type: AWS::Serverless::Application
-  #   Properties:
-  #     Location: dynamo/template.yaml
-
-  # APIGateway:
-  #   Type: AWS::Serverless::Application
-  #   Properties:
-  #     Location: api-gateway/template.yaml
-  #     Parameters:
-  #       Lambda1: !GetAtt DynamoDB.Outputs.DynamoDBTableName
-  #       Lambda2: !Ref SubscriptionEmail
-
-  Lambda:
-    Type: AWS::Serverless::Application
-    Properties:
-      Location: lambda/template.yaml
-      Parameters:
-        CollectionID: !Ref CollectionID
-  
   Rekognition:
     Type: AWS::Serverless::Application
     Properties:
-      Location: rekognition/template.yaml
-      Parameters: 
-        CollectionID: !Ref CollectionID
+      Location: 'rekognition/template.yaml'
+      Parameters:
+        CollectionID: !Ref CollectionId
+  Lambda:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: 'lambda/template.yaml'
+      Parameters:
+        CollectionID: !Ref CollectionId
+        S3ImageBucket: !Ref S3ImageBucket
+  ApiGateway:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: 'apigateway/template.yaml'
+      Parameters:
+        ApiName: !Ref APIName
+        ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
 
   S3Bucket:
     Type: AWS::Serverless::Application
