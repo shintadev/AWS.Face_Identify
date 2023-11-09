@@ -1,12 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  BucketName:
+    Type: String
+  RuleID:
+    Type: String
+  SearchPrefix:
+    Type: String
+
 Resources:
   S3Bucket:
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Retain
     Properties:
-      BucketName: face-extractor-ojt-s3bucket
+      BucketName: !Ref BucketName
       LifecycleConfiguration:
         Rules:
-          - Id: SearchRule
-            Prefix: SearchImageStorage
+          - Id: !Ref RuleID
+            Prefix: !Ref SearchPrefix
             Status: Enabled
             ExpirationInDays: 1
