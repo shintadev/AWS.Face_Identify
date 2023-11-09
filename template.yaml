@@ -12,9 +12,6 @@ Parameters:
   APIName:
     Type: String
     Default: rekognition-api
-  BucketName:
-    Type: String
-    Default: face-extractor-ojt-s3bucket
   RuleID:
     Type: String
     Default: SearchRule
@@ -49,7 +46,7 @@ Resources:
     Properties:
       Location: s3/template.yaml
       Parameters: 
-        BucketName: !Ref BucketName
+        S3ImageBucket: !Ref S3ImageBucket
         RuleID: !Ref RuleID
         SearchPrefix: !Ref SearchPrefix
 
