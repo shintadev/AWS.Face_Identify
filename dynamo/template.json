@@ -1,0 +1,75 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters" : {
+    "UserName" : {
+      "Type" : "String"
+      "Description" : "User's name inputed from form"
+    },
+    "FaceID" : {
+      "Type" : "String",
+      "Description" : "FaceID returned from AWS Rekognition to identify face"
+    },
+    "BoundingBox" : {
+      "Type" : "Object",
+      "Description": "Bounding box returned from AWS Rekognition to determine face in image"
+    }
+  }
+   "Resources":
+  "DynamoDB": {
+    "Type": AWS::DynamoDB::Table,
+    "Properties":
+	"myDynamoDBTable": {
+  		"Type" : "AWS::DynamoDB::Table",
+  		"Properties" : {
+      			"AttributeDefinitions" : [ 
+				{
+					"AttributeName" : "FaceID",
+					"AttributeType" : "S"
+				},
+				{
+					"AttributeName" : "Name",
+					"AttributeType" : "S"
+				},
+				{
+					"AttributeName" : "BucketLocation",
+					"AttributeType" : "S"
+				}
+			],
+			"KeySchema" : [ 
+				{
+					"AttributeName" : "FaceID",
+					"KeyType" : "HASH"
+				},
+				{
+					"AttributeName" : "Name",
+					"KeyType" : "RANGE"
+				}
+			],
+			"ProvisionedThroughput" : 
+				{
+				"ReadCapacityUnits" : "5",
+				"WriteCapacityUnits" : "5"
+				},
+			"TableName" : "myRekognitionRecord",
+			"GlobalSecondaryIndexes" : [{
+          			"IndexName" : "myGSI",
+          			"KeySchema" : [
+            			{
+              				"AttributeName" : "BucketLocation",
+              				"KeyType" : "HASH"
+            			}
+          			],                         
+          			"Projection" : {
+            				"NonKeyAttributes" : ["FaceID","Name"],
+            				"ProjectionType" : "INCLUDE"
+          			},
+          			"ProvisionedThroughput" : {
+            				"ReadCapacityUnits" : "5",
+            				"WriteCapacityUnits" : "5"
+          			}
+        		}]
+		}
+	}
+  }		
+}
+  

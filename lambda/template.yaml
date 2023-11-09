@@ -16,6 +16,8 @@ Parameters:
     Type: String
   CollectionID:
     Type: String
+  DynamoDBTable:
+    Type: String
 
 Resources:
   ExtractFaceInImages:
@@ -40,6 +42,20 @@ Resources:
       Environment:
         Variables:
           COLLECTION_ID: !Ref CollectionID
+      Handler: app.lambda_handler
+      MemorySize: 500
+      Role: arn:aws:iam::812723145208:role/iam-cloud-ojt-lambda-role
+      Runtime: python3.9
+      Timeout: 300
+      Tracing: Active
+
+  ImportDataToDynamoDB:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: import_to_db/
+      Environment:
+        Variables:
+          DynamoTable: !Ref DynamoDB  Table
       Handler: app.lambda_handler
       MemorySize: 500
       Role: arn:aws:iam::812723145208:role/iam-cloud-ojt-lambda-role
