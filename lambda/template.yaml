@@ -55,7 +55,7 @@ Resources:
       CodeUri: import_to_db/
       Environment:
         Variables:
-          DynamoTable: !Ref DynamoDB  Table
+          DynamoTable: !Ref DynamoDBTable
       Handler: app.lambda_handler
       MemorySize: 500
       Role: arn:aws:iam::812723145208:role/iam-cloud-ojt-lambda-role
