@@ -15,7 +15,7 @@ client=boto3.client('rekognition', region_name = 'ap-northeast-1')
 
 def lambda_handler(event, context):
     #get URI from UI
-    uri = event['request']['uri']
+    uri = event['uri']
     
     #Search face in collection
     facesID = rekogintion_search_faces(uri)
@@ -41,7 +41,7 @@ def lambda_handler(event, context):
 def rekogintion_search_faces(uri):
     uri = uri.split("/")
     bucket= uri[2]
-    collectionId='MyCollection'
+    collectionId='collection_id'
     fileName= uri[3] + "/" +uri[4]
     threshold = 70
     maxFaces=5

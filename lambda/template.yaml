@@ -33,7 +33,7 @@ Resources:
       Timeout: 300
       Tracing: Active
 
-  SearchFaceInImages:
+  SearchFaceByImages:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: search_face_in_images/
@@ -53,3 +53,5 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   ExtractFaceInImagesArn:
     Value: !GetAtt ExtractFaceInImages.Arn
+  SearchFaceByImagesArn:
+    Value: !GetAtt SearchFaceByImages.Arn

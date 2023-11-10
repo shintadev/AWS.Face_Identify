@@ -11,7 +11,7 @@ Parameters:
     Default: face-extractor-ojt-s3bucket
   APIName:
     Type: String
-    Default: rekognition-api
+    Default: face-extractor-ojt-api
   RuleID:
     Type: String
     Default: SearchRule
@@ -48,6 +48,7 @@ Resources:
       Parameters:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
+        SearchFaceByImangesArn: !GetAtt Lambda.Outputs.SearchFaceByImagesArn
 
   
 
