@@ -1,6 +1,6 @@
-  AWSTemplateFormatVersion: "2010-09-09"
-  Resources:
-		myDynamoDBTable:
-  		Type : AWS::DynamoDB::Table
-  		Properties:
-      	!ImportValue properties.json
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  myDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      !ImportValue: properties.json
