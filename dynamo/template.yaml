@@ -3,37 +3,4 @@
 		myDynamoDBTable:
   		Type : AWS::DynamoDB::Table
   		Properties:
-      	AttributeDefinitions :  
-					- AttributeName : "FaceID"
-					AttributeType : "S"
-					- AttributeName : "Name"
-					AttributeType : "S"
-					- AttributeName : "BucketLocation"
-					AttributeType : "S"
-			KeySchema :  
-					- AttributeName : "FaceID"
-					KeyType : "HASH"
-					- AttributeName : "Name"
-					KeyType : "RANGE"
-			ProvisionedThroughput : 
-				ReadCapacityUnits : "5"
-				WriteCapacityUnits : "5"
-			TableName : "myRekognitionRecord"
-			GlobalSecondaryIndexes : 
-				IndexName : "myGSI"
-				KeySchema : 
-					AttributeName : "BucketLocation"
-					KeyType : "HASH"										
-				Projection:
-						- NonKeyAttributes : "FaceIDName"
-						ProjectionType : "INCLUDE"
-				ProvisionedThroughput:
-						ReadCapacityUnits : "5"
-						WriteCapacityUnits : "5"
-				
-        		
-		
-	
-  		
-
-  
+      	!ImportValue properties.json

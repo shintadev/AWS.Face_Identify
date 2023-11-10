@@ -51,13 +51,12 @@ Resources:
       Parameters:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
-
-  
-
   DynamoDB:
     Type: AWS::Serverless::Application
     Properties:
       Location: dynamo/template.yaml
+      Parameters:
+        TableName: !Ref DynamoTableName
 
 
 # Outputs:
