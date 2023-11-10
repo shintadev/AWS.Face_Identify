@@ -6,15 +6,12 @@ Parameters:
   CollectionId:
     Type: String
     Default: face-collection
-  S3ImageBucket:
-    Type: String
-    Default: face-bucket
-  APIName:
-    Type: String
-    Default: rekognition-api
   BucketName:
     Type: String
     Default: face-extractor-ojt-s3bucket
+  APIName:
+    Type: String
+    Default: rekognition-api
   RuleID:
     Type: String
     Default: SearchRule
@@ -26,6 +23,14 @@ Parameters:
     Default: my-rekognition-record
 
 Resources:
+  S3Bucket:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: s3/template.yaml
+      Parameters: 
+        BucketName: !Ref BucketName
+        RuleID: !Ref RuleID
+        SearchPrefix: !Ref SearchPrefix
   Rekognition:
     Type: AWS::Serverless::Application
     Properties:
@@ -38,7 +43,7 @@ Resources:
       Location: 'lambda/template.yaml'
       Parameters:
         CollectionID: !Ref CollectionId
-        S3ImageBucket: !Ref S3ImageBucket
+        S3ImageBucket: !Ref S3Bucket
   ApiGateway:
     Type: AWS::Serverless::Application
     Properties:
@@ -47,14 +52,7 @@ Resources:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
 
-  S3Bucket:
-    Type: AWS::Serverless::Application
-    Properties:
-      Location: s3/template.yaml
-      Parameters: 
-        BucketName: !Ref BucketName
-        RuleID: !Ref RuleID
-        SearchPrefix: !Ref SearchPrefix
+  
 
   DynamoDB:
     Type: AWS::Serverless::Application
