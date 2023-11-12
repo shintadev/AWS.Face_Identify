@@ -34,18 +34,6 @@ def lambda_handler(event, context):
             )
         if response['ResponseMetadata']['HTTPStatusCode'] == 200:
         # Return JSON
-            return {
-                'statusCode':200,
-                'header': {
-                    'Content-Type': 'application/json'
-                },
-                'body': json.dumps(response)
-            }
+            return json.dumps(response)
     except Exception as e:
-        return {
-                'statusCode': e.getStatusCode(),
-                'header': {
-                    'Content-Type': 'application/json'
-                },
-                'body': json.dumps()
-            }
+        raise e

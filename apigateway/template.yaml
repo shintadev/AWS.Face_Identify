@@ -45,6 +45,7 @@ Resources:
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref APIGatewayREST
+      StageName: api
     DependsOn:
       - ExtractFaceInImagesMethod
   
