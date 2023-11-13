@@ -18,9 +18,9 @@ Parameters:
   SearchPrefix:
     Type: String
     Default: search-image
-  DynamoTableName:
+  TableName:
     Type: String
-    Default: my-rekognition-record
+    Default: my-rekognition-table
 
 Resources:
   S3Bucket:
@@ -44,6 +44,7 @@ Resources:
       Parameters:
         CollectionID: !Ref CollectionId
         S3ImageBucket: !Ref S3Bucket
+        TableName: !Ref TableName
   ApiGateway:
     Type: AWS::Serverless::Application
     Properties:
@@ -55,8 +56,6 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: dynamo/template.yaml
-      Parameters:
-        TableName: !Ref DynamoTableName
 
 
 # Outputs:
