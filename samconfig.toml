@@ -20,8 +20,12 @@ resolve_s3 = true
 s3_prefix = "face-extractor-ojt"
 region = "ap-northeast-1"
 image_repositories = []
+<<<<<<< HEAD
 disable_rollback = true
 parameter_overrides = "CollectionId=\"face-collection\" BucketName=\"face-extractor-ojt-s3bucket\" APIName=\"rekognition-api\" RuleID=\"SearchRule\" SearchPrefix=\"search-image\" TableName=\"my-rekognition-record\""
+=======
+disable_rollback = false
+>>>>>>> a38bf9c1ff76433eaabd65465aafd8d6a30d5fea
 
 [default.package.parameters]
 resolve_s3 = true

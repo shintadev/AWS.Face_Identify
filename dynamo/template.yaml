@@ -1,4 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
+<<<<<<< HEAD
+=======
+Parameters:
+  TableName:
+    Type: String
+>>>>>>> a38bf9c1ff76433eaabd65465aafd8d6a30d5fea
 
 Resources:
   Fn::Transform:
