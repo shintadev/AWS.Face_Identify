@@ -59,12 +59,3 @@ Resources:
   #     Parameters:
   #       TableName: !Ref DynamoTableName
 
-
-# Outputs:
-  # DynamoDBTableName:
-  #   Description: "DynamoDB Table Name"
-  #   Value: !GetAtt DynamoDB.Outputs.DynamoDBTableName
-
-  # ApiEndpoint:
-  #   Description: "Orders API Gateway Endpoint URL"
-  #   Value: !GetAtt APIGateway.Outputs.APIEndpoint

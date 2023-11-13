@@ -7,4 +7,4 @@ Resources:
   myDynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      !ImportValue: properties.json
+      !ImportValue properties.json
