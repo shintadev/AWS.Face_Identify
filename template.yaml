@@ -7,7 +7,7 @@ Parameters:
     Type: String
     Default: face-extractor-ojt-collection
   BucketName:
-    Type: String
+    Type: Str
     Default: face-extractor-ojt-s3bucket
   APIName:
     Type: String
