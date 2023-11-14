@@ -7,7 +7,7 @@ Parameters:
     Type: String
     Default: face-extractor-ojt-collection
   BucketName:
-    Type: Str
+    Type: String
     Default: face-extractor-ojt-s3bucket
   APIName:
     Type: String
@@ -52,7 +52,7 @@ Resources:
       Parameters:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
-        SearchFaceByImangesArn: !GetAtt Lambda.Outputs.SearchFaceByImagesArn
+        SearchFaceByImagesArn: !GetAtt Lambda.Outputs.SearchFaceByImagesArn
   # DynamoDB:
   #   Type: AWS::Serverless::Application
   #   Properties:
