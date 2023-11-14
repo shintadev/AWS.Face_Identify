@@ -59,7 +59,7 @@ Resources:
       Principal: apigateway.amazonaws.com
     DependsOn:
       - ExtractFaceInImagesDeployment
-      
+ #---------------------------------------------------------------------#     
   SearchFaceByImagesResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -89,21 +89,22 @@ Resources:
     DependsOn:
       - SearchFaceByImagesResource
 
-SearchFaceByImagesDeployment:
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref APIGatewayREST
-    DependsOn:
-      - SearchFaceByImagesMethod
+  SearchFaceByImagesDeployment:
+      Type: AWS::ApiGateway::Deployment
+      Properties:
+        RestApiId: !Ref APIGatewayREST
+        StageName: api
+      DependsOn:
+        - SearchFaceByImagesMethod
 
-SearchFaceByImagesPermission:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref SearchFaceByImagesArn
-      Principal: apigateway.amazonaws.com
-    DependsOn:
-      - SearchFaceByImagesDeployment
+  SearchFaceByImagesPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref SearchFaceByImagesArn
+        Principal: apigateway.amazonaws.com
+      DependsOn:
+        - SearchFaceByImagesDeployment
 
   #Use template below to create path for another lambda
   # <API>Resource:
