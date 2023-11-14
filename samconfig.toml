@@ -1,0 +1,9 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "face-extractor-ojt"
+resolve_s3 = true
+s3_prefix = "face-extractor-ojt"
+region = "ap-northeast-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "CollectionId=\"face-collection\" BucketName=\"face-extractor-ojt-s3bucket\" APIName=\"rekognition-api\" RuleID=\"SearchRule\" SearchPrefix=\"search-image\" TableName=\"my-rekognition-table\""
+image_repositories = []

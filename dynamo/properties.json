@@ -51,5 +51,6 @@
 				}
 			]
 		}
-	}
+	},
+	"Capabilities": "CAPABILITY_AUTO_EXPAND"
 }

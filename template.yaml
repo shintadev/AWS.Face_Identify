@@ -57,8 +57,6 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: dynamo/template.yaml
-      Parameters:
-        TableName: !Ref TableName
 
 
 # Outputs:
