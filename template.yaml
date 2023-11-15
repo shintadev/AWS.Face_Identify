@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Root stack for managing face-extrator resources
 
@@ -20,14 +20,14 @@ Parameters:
     Default: 'search-image'
   TableName:
     Type: String
-    Default: 'my-rekognition-table'
+    Default: 'face-extractor-ojt-dynamodb'
 
 Resources:
   S3:
     Type: AWS::Serverless::Application
     Properties:
       Location: 's3/template.yaml'
-      Parameters: 
+      Parameters:
         BucketName: !Ref S3BucketName
         RuleID: !Ref RuleID
         SearchPrefix: !Ref SearchPrefix
@@ -57,4 +57,3 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: dynamo/template.yaml
-
