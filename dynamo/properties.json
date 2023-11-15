@@ -2,6 +2,7 @@
 	"MyTable": {
 		"Type": "AWS::DynamoDB::Table",
 		"Properties": {
+			"TableName": "face-extractor-ojt-dynamodb",
 			"AttributeDefinitions": [
 				{
 					"AttributeName": "FaceID",

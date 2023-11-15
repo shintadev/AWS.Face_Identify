@@ -20,7 +20,7 @@ Parameters:
     Default: search-image
   TableName:
     Type: String
-    Default: my-rekognition-table
+    Default: face-extractor-ojt-dynamodb
 
 Resources:
   S3Bucket:
