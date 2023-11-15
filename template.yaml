@@ -5,30 +5,30 @@ Description: Root stack for managing face-extrator resources
 Parameters:
   CollectionId:
     Type: String
-    Default: face-extractor-ojt-collection
-  BucketName:
+    Default: 'face-extractor-ojt-collection'
+  S3BucketName:
     Type: String
-    Default: face-extractor-ojt-s3bucket
+    Default: 'face-extractor-ojt-s3bucket'
   APIName:
     Type: String
-    Default: face-extractor-ojt-api
+    Default: 'face-extractor-ojt-api'
   RuleID:
     Type: String
-    Default: SearchRule
+    Default: 'SearchRule'
   SearchPrefix:
     Type: String
-    Default: search-image
-  DynamoTableName:
+    Default: 'search-image'
+  TableName:
     Type: String
-    Default: my-rekognition-record
+    Default: 'my-rekognition-table'
 
 Resources:
-  S3Bucket:
+  S3:
     Type: AWS::Serverless::Application
     Properties:
-      Location: s3/template.yaml
+      Location: 's3/template.yaml'
       Parameters: 
-        BucketName: !Ref BucketName
+        BucketName: !Ref S3BucketName
         RuleID: !Ref RuleID
         SearchPrefix: !Ref SearchPrefix
   Rekognition:
@@ -43,8 +43,8 @@ Resources:
       Location: 'lambda/template.yaml'
       Parameters:
         CollectionID: !Ref CollectionId
-        S3ImageBucket: !Ref BucketName
-        DynamoDBTable: !Ref DynamoTableName
+        S3ImageBucket: !Ref S3BucketName
+        TableName: !Ref TableName
   ApiGateway:
     Type: AWS::Serverless::Application
     Properties:
@@ -52,10 +52,9 @@ Resources:
       Parameters:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
-  # DynamoDB:
-  #   Type: AWS::Serverless::Application
-  #   Properties:
-  #     Location: dynamo/template.yaml
-  #     Parameters:
-  #       TableName: !Ref DynamoTableName
+        SearchFaceByImagesArn: !GetAtt Lambda.Outputs.SearchFaceByImagesArn
+  DynamoDB:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: dynamo/template.yaml
 

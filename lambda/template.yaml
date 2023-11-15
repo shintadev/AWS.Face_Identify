@@ -16,7 +16,7 @@ Parameters:
     Type: String
   CollectionID:
     Type: String
-  DynamoDBTable:
+  TableName:
     Type: String
 
 Resources:
@@ -35,7 +35,7 @@ Resources:
       Timeout: 300
       Tracing: Active
 
-  SearchFaceInImages:
+  SearchFaceByImages:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: search_face_in_images/
@@ -55,7 +55,7 @@ Resources:
       CodeUri: import_to_db/
       Environment:
         Variables:
-          DynamoTable: !Ref DynamoDBTable
+          TableName: !Ref TableName
       Handler: app.lambda_handler
       MemorySize: 500
       Role: arn:aws:iam::812723145208:role/iam-cloud-ojt-lambda-role
@@ -69,3 +69,5 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   ExtractFaceInImagesArn:
     Value: !GetAtt ExtractFaceInImages.Arn
+  SearchFaceByImagesArn:
+    Value: !GetAtt SearchFaceByImages.Arn

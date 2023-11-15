@@ -1,10 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Parameters:
-  TableName:
-    Type: String
-
 Resources:
-  myDynamoDBTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      !ImportValue properties.json
+  Fn::Transform:
+    Name: AWS::Include
+    Parameters:
+      Location: properties.json
