@@ -2,6 +2,7 @@
 	"MyTable": {
 		"Type": "AWS::DynamoDB::Table",
 		"Properties": {
+			"TableName": "my-rekognition-table",
 			"AttributeDefinitions": [
 				{
 					"AttributeName": "FaceID",
