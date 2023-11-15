@@ -42,6 +42,7 @@ Resources:
       Environment:
         Variables:
           COLLECTION_ID: !Ref CollectionID
+          TableName: !Ref TableName
       Handler: app.lambda_handler
       MemorySize: 500
       Role: arn:aws:iam::812723145208:role/iam-cloud-ojt-lambda-role

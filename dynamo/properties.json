@@ -2,7 +2,11 @@
 	"MyTable": {
 		"Type": "AWS::DynamoDB::Table",
 		"Properties": {
+<<<<<<< HEAD
 			"TableName": "my-rekognition-table",
+=======
+			"TableName": "face-extractor-ojt-dynamodb",
+>>>>>>> ec913b12361f2668e5b91d07a538ba62c76e1dbe
 			"AttributeDefinitions": [
 				{
 					"AttributeName": "FaceID",

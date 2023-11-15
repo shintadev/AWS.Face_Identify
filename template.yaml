@@ -1,34 +1,34 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Root stack for managing face-extrator resources
 
 Parameters:
   CollectionId:
     Type: String
-    Default: face-extractor-ojt-collection
-  BucketName:
+    Default: 'face-extractor-ojt-collection'
+  S3BucketName:
     Type: String
-    Default: face-extractor-ojt-s3bucket
+    Default: 'face-extractor-ojt-s3bucket'
   APIName:
     Type: String
-    Default: face-extractor-ojt-api
+    Default: 'face-extractor-ojt-api'
   RuleID:
     Type: String
-    Default: SearchRule
+    Default: 'SearchRule'
   SearchPrefix:
     Type: String
-    Default: search-image
+    Default: 'search-image'
   TableName:
     Type: String
-    Default: my-rekognition-table
+    Default: 'face-extractor-ojt-dynamodb'
 
 Resources:
-  S3Bucket:
+  S3:
     Type: AWS::Serverless::Application
     Properties:
-      Location: s3/template.yaml
-      Parameters: 
-        BucketName: !Ref BucketName
+      Location: 's3/template.yaml'
+      Parameters:
+        BucketName: !Ref S3BucketName
         RuleID: !Ref RuleID
         SearchPrefix: !Ref SearchPrefix
   Rekognition:
@@ -43,7 +43,7 @@ Resources:
       Location: 'lambda/template.yaml'
       Parameters:
         CollectionID: !Ref CollectionId
-        S3ImageBucket: !Ref BucketName
+        S3ImageBucket: !Ref S3BucketName
         TableName: !Ref TableName
   ApiGateway:
     Type: AWS::Serverless::Application
@@ -58,13 +58,3 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location: dynamo/template.yaml
-
-
-# Outputs:
-  # DynamoDBTableName:
-  #   Description: "DynamoDB Table Name"
-  #   Value: !GetAtt DynamoDB.Outputs.DynamoDBTableName
-
-  # ApiEndpoint:
-  #   Description: "Orders API Gateway Endpoint URL"
-  #   Value: !GetAtt APIGateway.Outputs.APIEndpoint
