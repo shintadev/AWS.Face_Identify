@@ -5,7 +5,7 @@ import os
 
 def lambda_handler(event, context):
     # data = json.loads(event['body'])
-    tableName = os.environ('TableName')
+    tableName = os.environ['TableName']
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(tableName)
     response = table.put_item(
