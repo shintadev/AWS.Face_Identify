@@ -53,6 +53,7 @@ Resources:
         ApiName: !Ref APIName
         ExtractFaceInImagesArn: !GetAtt Lambda.Outputs.ExtractFaceInImagesArn
         SearchFaceByImagesArn: !GetAtt Lambda.Outputs.SearchFaceByImagesArn
+        ImportToDBArn: !GetAtt Lambda.Outputs.ImportToDBArn
   DynamoDB:
     Type: AWS::Serverless::Application
     Properties:
