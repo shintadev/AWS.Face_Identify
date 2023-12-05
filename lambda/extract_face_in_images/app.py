@@ -34,6 +34,11 @@ def lambda_handler(event, context):
             )
         if response['ResponseMetadata']['HTTPStatusCode'] == 200:
         # Return JSON
-            return json.dumps(response)
+            headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
+            }
+            return json.dumps(response), headers
     except Exception as e:
         raise e
